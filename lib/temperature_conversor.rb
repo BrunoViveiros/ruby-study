@@ -11,24 +11,12 @@ class Temperature
   def inspect
     @value
   end
-
-  def to_celsius
-    self
-  end
-
-  def to_fahrenheit
-    self
-  end
-
-  def to_kelvin
-    self
-  end
 end
 
 # Kelvin
 class Kelvin < Temperature
   def inspect
-    "#{super} K"
+    "#{@value} K"
   end
 
   def to_celsius
@@ -36,14 +24,18 @@ class Kelvin < Temperature
   end
 
   def to_fahrenheit
-    Fahrenheit.new(to_celsius.value * (9.0 / 5.0) + 32)
+    Fahrenheit.new((@value - 273.15) * 1.8 + 32)
+  end
+
+  def to_kelvin
+    self
   end
 end
 
 # Fahrenheit
 class Fahrenheit < Temperature
   def inspect
-    "#{super} °F"
+    "#{@value} °F"
   end
 
   def to_celsius
@@ -51,14 +43,18 @@ class Fahrenheit < Temperature
   end
 
   def to_kelvin
-    Kelvin.new(to_celsius.value + 273.15)
+    Kelvin.new((@value - 32) * 5.0 / 9.0 + 273.15)
+  end
+
+  def to_fahrenheit
+    self
   end
 end
 
 # Celsius
 class Celsius < Temperature
   def inspect
-    "#{super} °C"
+    "#{@value} °C"
   end
 
   def to_kelvin
@@ -66,6 +62,10 @@ class Celsius < Temperature
   end
 
   def to_fahrenheit
-    Fahrenheit.new(@value * (9.0 / 5.0) + 32)
+    Fahrenheit.new(@value * 1.8 + 32)
+  end
+
+  def to_celsius
+    self
   end
 end
